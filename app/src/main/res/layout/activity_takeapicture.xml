@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="100"
+    tools:context="org.shinhan16200100.simpleshotmobileresult.Takeapicture">
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="80"
+        android:src="@mipmap/ic_launcher"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:weightSum="100"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/loadcamera"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="40"
+            android:text="take a picture"
+            android:onClick="onButtonClicked"/>
+        <Button
+            android:id="@+id/loadocr"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="60"
+            android:text="load ocr"/>
+    </LinearLayout>
+
+</LinearLayout>
