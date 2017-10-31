@@ -2,11 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.shinhan16200100.simpleshotmobileresult">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <uses-feature android:name="android.hardware.camera"
-        android:required="true"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +24,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".FirstMenu" />
-        <activity android:name=".Takeapicture"></activity>
+        <activity android:name=".Takeapicture" />
+        <activity android:name=".Seethegroup" />
+        <activity android:name=".Showlist" />
+        <activity android:name=".OcrResult"></activity>
     </application>
 
 </manifest>

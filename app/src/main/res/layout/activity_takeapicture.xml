@@ -23,15 +23,15 @@
             android:id="@+id/loadcamera"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="40"
-            android:text="take a picture"
+            android:layout_weight="55"
+            android:text="사진 찍기"
             android:onClick="onButtonClicked"/>
         <Button
             android:id="@+id/loadocr"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="60"
-            android:text="load ocr"/>
+            android:layout_weight="50"
+            android:text="ocr 연동하기"/>
     </LinearLayout>
 
 </LinearLayout>

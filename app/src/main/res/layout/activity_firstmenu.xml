@@ -22,7 +22,7 @@
             android:layout_width="186dp"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:text="take a picture"
+            android:text="사진 찍기"
             android:textSize="20dp" />
     </RelativeLayout>
     <LinearLayout
@@ -40,7 +40,7 @@
             android:layout_width="186dp"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:text="see the group"
+            android:text="그룹 보기"
             android:textSize="20dp" />
     </RelativeLayout>
 </LinearLayout>
