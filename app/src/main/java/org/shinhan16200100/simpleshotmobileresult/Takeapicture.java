@@ -3,6 +3,7 @@ package org.shinhan16200100.simpleshotmobileresult;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,9 +11,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.graphics.Matrix;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +36,20 @@ public class Takeapicture extends AppCompatActivity {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
+        Button loadocr = (Button)findViewById(R.id.loadocr);
+
+        loadocr.setOnClickListener(
+                new Button.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), OcrResult.class);
+                        startActivity(intent);
+                    }
+                }
+        );
+
+
     }
 
     public void onButtonClicked(View v){
@@ -44,6 +59,7 @@ public class Takeapicture extends AppCompatActivity {
             startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
         }
     }
+
     private File createFile() throws IOException{
         String imageFileName = "receipt.jpg";
         File storageDir = Environment.getExternalStorageDirectory();
