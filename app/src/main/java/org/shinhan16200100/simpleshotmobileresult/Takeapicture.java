@@ -1,6 +1,7 @@
 package org.shinhan16200100.simpleshotmobileresult;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -13,10 +14,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.googlecode.tesseract.android.TessBaseAPI;
+
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class Takeapicture extends AppCompatActivity {
     public static final int REQUEST_IMAGE_CAPTURE = 1001;
@@ -24,11 +32,16 @@ public class Takeapicture extends AppCompatActivity {
     File file = null;
     ImageView picture;
 
+    Bitmap image;//사용되는 이미지
+    private TessBaseAPI mTess; //Tess API reference
+    String takeapicture_datapth ="";//언어 데이터가 있는 경로
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_takeapicture);
 
+        //
         picture = (ImageView)findViewById(R.id.picture);
 
         try {
@@ -48,6 +61,20 @@ public class Takeapicture extends AppCompatActivity {
                     }
                 }
         );
+
+        //
+        image = BitmapFactory.decodeResource(getResources(), R.drawable.apple); //샘플이미지파일
+        //언어파일 경로
+        takeapicture_datapth = getFilesDir()+ "/tesseract/";
+
+        //트레이닝데이터가 카피되어 있는지 체크
+        checkFile(new File(takeapicture_datapth + "tessdata/"));
+
+        //Tesseract API
+        String lang = "kor";
+
+        mTess = new TessBaseAPI();
+        mTess.init(takeapicture_datapth, lang);
 
 
     }
@@ -136,6 +163,55 @@ public class Takeapicture extends AppCompatActivity {
                 }
             } else {
                 Toast.makeText(getApplicationContext(), "File is null.", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    public void seeTheOcrText(View v){
+
+        Intent intent2 = new Intent(this, SampleResult.class);
+        String OCRresult = null;
+        mTess.setImage(image);
+        OCRresult = mTess.getUTF8Text();
+        TextView seethesample = (TextView) findViewById(R.id.seethesample);
+        seethesample.setText(OCRresult);
+        intent2.putExtra("SAMPLERESULT",seethesample.getText().toString());
+        startActivity(intent2);
+    }
+
+    private void copyFiles() {
+        try{
+            String filepath = takeapicture_datapth + "/tessdata/kor.traineddata";
+            AssetManager assetManager = getAssets();
+            InputStream instream = assetManager.open("tessdata/kor.traineddata");
+            OutputStream outstream = new FileOutputStream(filepath);
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = instream.read(buffer)) != -1) {
+                outstream.write(buffer, 0, read);
+            }
+            outstream.flush();
+            outstream.close();
+            instream.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void checkFile(File dir) {
+        //디렉토리가 없으면 디렉토리를 만들고 그후에 파일을 카피
+        if(!dir.exists()&& dir.mkdirs()) {
+            copyFiles();
+        }
+        //디렉토리가 있지만 파일이 없으면 파일카피 진행
+        if(dir.exists()) {
+            String datafilepath = takeapicture_datapth+ "/tessdata/kor.traineddata";
+            File datafile = new File(datafilepath);
+            if(!datafile.exists()) {
+                copyFiles();
             }
         }
     }

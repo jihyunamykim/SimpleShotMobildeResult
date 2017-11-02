@@ -25,9 +25,12 @@
         </activity>
         <activity android:name=".FirstMenu" />
         <activity android:name=".Takeapicture" />
-        <activity android:name=".Seethegroup" />
-        <activity android:name=".Showlist" />
-        <activity android:name=".OcrResult"></activity>
+        <activity android:name=".Seethegroup"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Showlist"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".OcrResult" />
+        <activity android:name=".SampleResult"></activity>
     </application>
 
 </manifest>

@@ -10,7 +10,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_weight="0.1"
         android:weightSum="1"
         android:orientation="horizontal">
         <TextView
@@ -23,22 +22,101 @@
             android:gravity="center"
             android:textColor="#ffffff"/>
     </LinearLayout>
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="horizontal|vertical"
-        android:scrollbarStyle="outsideInset"
-        android:fillViewport="true"
-        android:layout_weight="0.9">
-        <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scrollbars="horizontal|vertical"
-            android:layout_marginTop="5dip">
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </TableLayout>
-        </HorizontalScrollView>
-    </ScrollView>
+        android:layout_height="match_parent">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="*"
+            android:padding="8dp">
+            <TableRow
+                android:weightSum="5"
+                android:background="@drawable/border">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="승인번호"
+                    android:textSize="15sp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="카드번호"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="승인일시"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="내  용"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="결제금액"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"/>
+            </TableRow>
+            <TableRow
+                android:weightSum="5">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="24303461"
+                    android:textSize="15sp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="5107-37**-**6694"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="24303461"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="부대찌게"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="44,500"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"/>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
 </LinearLayout>

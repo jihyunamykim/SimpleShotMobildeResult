@@ -8,11 +8,13 @@ import android.widget.Button;
 
 public class OcrResult extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocr_result);
 
+        //지우면 안됨
         Button savedata = (Button)findViewById(R.id.savedata);
 
         savedata.setOnClickListener(
