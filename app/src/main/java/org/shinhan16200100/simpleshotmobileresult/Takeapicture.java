@@ -170,13 +170,17 @@ public class Takeapicture extends AppCompatActivity {
     public void seeTheOcrText(View v){
 
         Intent intent2 = new Intent(this, SampleResult.class);
-        String OCRresult = null;
+
+        String OCRSampleresult = null;
+
         mTess.setImage(image);
-        OCRresult = mTess.getUTF8Text();
-        TextView seethesample = (TextView) findViewById(R.id.seethesample);
-        seethesample.setText(OCRresult);
-        intent2.putExtra("SAMPLERESULT",seethesample.getText().toString());
-        startActivity(intent2);
+
+        OCRSampleresult = mTess.getUTF8Text();
+
+        TextView temp = (TextView)findViewById(R.id.seethesample);
+
+        temp.setText(OCRSampleresult);
+
     }
 
     private void copyFiles() {
