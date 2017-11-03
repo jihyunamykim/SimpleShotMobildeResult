@@ -41,7 +41,7 @@ public class Takeapicture extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_takeapicture);
 
-        //
+
         picture = (ImageView)findViewById(R.id.picture);
 
         try {
@@ -50,6 +50,7 @@ public class Takeapicture extends AppCompatActivity {
             ex.printStackTrace();
         }
 
+        //버튼 누르면 loadocr 화면으로 넘어감
         Button loadocr = (Button)findViewById(R.id.loadocr);
 
         loadocr.setOnClickListener(
@@ -64,6 +65,11 @@ public class Takeapicture extends AppCompatActivity {
 
         //
         image = BitmapFactory.decodeResource(getResources(), R.drawable.apple); //샘플이미지파일
+
+        //
+        //BitmapDrawable d = (BitmapDrawable)picture.getDrawable();
+        //image = d.getBitmap(); //샘플이미지파일
+
         //언어파일 경로
         takeapicture_datapth = getFilesDir()+ "/tesseract/";
 
@@ -76,23 +82,27 @@ public class Takeapicture extends AppCompatActivity {
         mTess = new TessBaseAPI();
         mTess.init(takeapicture_datapth, lang);
 
-
     }
 
     public void onButtonClicked(View v){
+
         Intent intent =new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-        if (intent.resolveActivity((getPackageManager())) != null){
+
+        if (intent.resolveActivity((getPackageManager())) != null)
+        {
             startActivityForResult(intent,REQUEST_IMAGE_CAPTURE);
         }
     }
 
     private File createFile() throws IOException{
-        String imageFileName = "receipt.jpg";
+        String imageFileName = "receipt.png";
         File storageDir = Environment.getExternalStorageDirectory();
         File curFile = new File(storageDir,imageFileName);
         return curFile;
     }
+
     public int exifOrientationToDegrees(int exifOrientation){
         if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_90)
         {
@@ -108,31 +118,29 @@ public class Takeapicture extends AppCompatActivity {
         }
         return 0;
     }
+
     public Bitmap rotate(Bitmap bitmap, int degrees){
-        if(degrees != 0 && bitmap != null)
-        {
+        if(degrees != 0 && bitmap != null)        {
             Matrix m = new Matrix();
             m.setRotate(degrees, (float) bitmap.getWidth() / 2,
                     (float) bitmap.getHeight() / 2);
 
-            try
-            {
+            try            {
                 Bitmap converted = Bitmap.createBitmap(bitmap, 0, 0,
                         bitmap.getWidth(), bitmap.getHeight(), m, true);
-                if(bitmap != converted)
-                {
+                if(bitmap != converted)                {
                     bitmap.recycle();
                     bitmap = converted;
                 }
             }
-            catch(OutOfMemoryError ex)
-            {
+            catch(OutOfMemoryError ex)            {
                 // 메모리가 부족하여 회전을 시키지 못할 경우 그냥 원본을 반환합니다.
             }
         }
         return bitmap;
     }
 
+    Bitmap resultBitmap = null;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -143,7 +151,7 @@ public class Takeapicture extends AppCompatActivity {
 
             if (file != null) {
                 String imagePath = Uri.fromFile(file).getPath();
-                Bitmap bitmap = BitmapFactory.decodeFile(imagePath, options);
+                resultBitmap = BitmapFactory.decodeFile(imagePath, options);
 
                 try {
                     //이미지 상황에 맞게 회전시킨다
@@ -153,9 +161,9 @@ public class Takeapicture extends AppCompatActivity {
                             ExifInterface.TAG_ORIENTATION,
                             ExifInterface.ORIENTATION_NORMAL);
                     int exifDegree = exifOrientationToDegrees(exifOrienetation);
-                    bitmap = rotate(bitmap, exifDegree);
+                    resultBitmap = rotate(resultBitmap, exifDegree);
 
-                    picture.setImageBitmap(bitmap);
+                    picture.setImageBitmap(resultBitmap);
                 }
                 catch(Exception e)
                 {
@@ -167,21 +175,6 @@ public class Takeapicture extends AppCompatActivity {
         }
     }
 
-    public void seeTheOcrText(View v){
-
-        Intent intent2 = new Intent(this, SampleResult.class);
-
-        String OCRSampleresult = null;
-
-        mTess.setImage(image);
-
-        OCRSampleresult = mTess.getUTF8Text();
-
-        TextView temp = (TextView)findViewById(R.id.seethesample);
-
-        temp.setText(OCRSampleresult);
-
-    }
 
     private void copyFiles() {
         try{
@@ -220,4 +213,22 @@ public class Takeapicture extends AppCompatActivity {
         }
     }
 
+    public void seeTheOcrText(View v){
+
+        Intent intent = new Intent(this, SampleResult.class);
+
+        String OCRsampleresult = null;
+        if (resultBitmap != null) {
+            mTess.setImage(resultBitmap);
+            OCRsampleresult = mTess.getUTF8Text();
+
+            TextView showmetheresult = (TextView)findViewById(R.id.showmetheresult);
+
+            showmetheresult.setText(OCRsampleresult);
+
+            intent.putExtra("sample",OCRsampleresult);
+
+            startActivity(intent);
+        }
+    }
 }
