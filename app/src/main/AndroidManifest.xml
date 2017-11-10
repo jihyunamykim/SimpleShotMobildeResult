@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -23,14 +24,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FirstMenu" />
-        <activity android:name=".Takeapicture" />
-        <activity android:name=".Seethegroup"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Showlist"
-            android:screenOrientation="landscape"/>
-        <activity android:name=".OcrResult" />
-        <activity android:name=".SampleResult"></activity>
+        <activity
+            android:name=".FirstMenu"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Takeapicture"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Seethegroup"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Showlist"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".OcrResult"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SampleResult"
+            android:screenOrientation="portrait" />
+        <activity android:name=".SaveCardNumber"></activity>
     </application>
 
 </manifest>
